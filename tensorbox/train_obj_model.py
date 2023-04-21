@@ -20,7 +20,7 @@ import threading
 random.seed(0)
 np.random.seed(0)
 
-from utils import train_utils, googlenet_load
+from .utils import train_utils, googlenet_load
 
 @ops.RegisterGradient("Hungarian")
 def _hungarian_grad(op, *args):
