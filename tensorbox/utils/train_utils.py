@@ -4,7 +4,8 @@ import json
 import os
 import cv2
 import itertools
-from scipy.misc import imread, imresize
+from skimage.transform import resize
+from skimage.io import imsave
 import tensorflow as tf
 
 from data_utils import (annotation_jitter, annotation_to_h5)
@@ -46,7 +47,7 @@ def load_idl_tf(idlfile, H, jitter):
             if I.shape[0] != H["image_height"] or I.shape[1] != H["image_width"]:
                 if epoch == 0:
                     anno = rescale_boxes(I.shape, anno, H["image_height"], H["image_width"])
-                I = imresize(I, (H["image_height"], H["image_width"]), interp='cubic')
+                I = resize(I, (H["image_height"], H["image_width"]), interp='cubic')
             if jitter:
                 jitter_scale_min=0.9
                 jitter_scale_max=1.1
