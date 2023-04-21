@@ -11,7 +11,7 @@ import sys
 import os
 current_dir = os.path.dirname(__file__)
 sys.path.append(current_dir+'/annolist')
-from annolist import AnnotationLib as al
+import AnnotationLib as al
 
 def annotation_to_h5(H, a, cell_width, cell_height, max_len):
     region_size = H['region_size']
