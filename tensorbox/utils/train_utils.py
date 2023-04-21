@@ -9,8 +9,12 @@ from skimage.io import imsave
 import tensorflow as tf
 
 from .data_utils import (annotation_jitter, annotation_to_h5)
-sys.path.append('./annolist')
-sys.path.append('./rect')
+
+import sys
+imprt os
+current_dir = os.path.dirname(__file__)
+sys.path.append(current_dir+'/annolist')
+sys.path.append(current_dir+'/rect')
 from annolist import AnnotationLib as al
 from rect import Rect
 
