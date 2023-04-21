@@ -10,11 +10,11 @@ import tensorflow as tf
 
 from .data_utils import (annotation_jitter, annotation_to_h5)
 
-import sys
-import os
-current_dir = os.path.dirname(__file__)
-sys.path.append(current_dir+'/annolist')
-sys.path.append(current_dir+'/rect')
+#import sys
+#import os
+#current_dir = os.path.dirname(__file__)
+#sys.path.append(current_dir+'/annolist')
+#sys.path.append(current_dir+'/rect')
 from annolist import AnnotationLib as al
 from rect import Rect
 
