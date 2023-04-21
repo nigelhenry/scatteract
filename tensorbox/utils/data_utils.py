@@ -5,6 +5,12 @@ import sys
 import argparse
 import numpy as np
 import copy
+
+
+import sys
+import os
+current_dir = os.path.dirname(__file__)
+sys.path.append(current_dir+'/annolist')
 from annolist import AnnotationLib as al
 
 def annotation_to_h5(H, a, cell_width, cell_height, max_len):
