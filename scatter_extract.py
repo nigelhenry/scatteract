@@ -16,7 +16,8 @@
 
 import tensorflow as tf
 import json
-from scipy.misc import imresize, imsave
+from skimage.transform import resize
+from skimage.io import imsave
 from tensorbox.train_obj_model import build_forward
 from tensorbox.utils import googlenet_load
 from tensorbox.utils.annolist import AnnotationLib as al
@@ -236,7 +237,7 @@ class PlotExtractor(object):
                 img_orig = np.copy(img)
 
                 if img.shape[0] != H["image_height"] or img.shape[1] != H["image_width"]:
-                    img = imresize(img, (H["image_height"], H["image_width"]), interp='cubic')
+                    img = resize(img, (H["image_height"], H["image_width"]), interp='cubic')
 
                 (np_pred_boxes, np_pred_confidences) = sess.run([model['pred_boxes'], model['pred_confidences']],
                                                                 feed_dict={model['x_in']: img})
