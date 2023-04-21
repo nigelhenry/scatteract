@@ -12,7 +12,7 @@ import tensorflow as tf
 try:
     from tensorflow.models.rnn import rnn_cell
 except ImportError:
-    rnn_cell = tf.nn.rnn_cell
+    rnn_cell = tf.keras.layers.LSTMCell
 from tensorflow.python.framework import ops
 from tensorflow.python.ops import array_ops
 import threading
