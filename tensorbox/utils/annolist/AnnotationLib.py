@@ -487,7 +487,7 @@ class Annotation(object):
 		return os.path.join(self.imagePath, self.imageName)
 
 	def printContent(self):
-		print("Name: "_ self.imageName)
+		print("Name: "+ self.imageName)
 		for rect in self.rects:
 			rect.printContent()
 
