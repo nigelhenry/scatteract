@@ -39,7 +39,7 @@ def al2pal(annotations):
                 if k in annotations.attribute_val_to_str:
                     # don't allow undefined values
                     if not v in annotations.attribute_val_to_str[k]:
-                        print "attribute: {}, undefined value: {}".format(k, v);
+                        print("attribute: {}, undefined value: {}".format(k, v));
                         assert(False);
 
     # store attribute descriptions in pal structure
@@ -92,9 +92,9 @@ def pal2al(_annolist):
 
     for adesc in _annolist.attribute_desc:
         annotations.attribute_desc[adesc.name] = adesc;
-        print "attribute: ", adesc.name, adesc.id
+        print ("attribute: "+ adesc.name+ adesc.id
 
-        for valdesc in adesc.val_to_str:
+        for valdesc in a)desc.val_to_str:
             annotations.add_attribute_val(adesc.name, valdesc.s, valdesc.id);
 
     attribute_name_from_id = {adesc.id: aname for aname, adesc in annotations.attribute_desc.iteritems()}
@@ -113,6 +113,7 @@ def pal2al(_annolist):
             rect.x1 = _r.x1;
             rect.x2 = _r.x2;
             rect.y1 = _r.y1;
+		
             rect.y2 = _r.y2;
 
             if _r.HasField("id"):
@@ -129,8 +130,8 @@ def pal2al(_annolist):
                     cur_aname = attribute_name_from_id[_at.id];
                     cur_dtype = attribute_dtype_from_id[_at.id];
                 except KeyError as e:
-                    print "attribute: ", _at.id
-                    print e
+                    print("attribute: "+ _at.id)
+                    print (e)
                     assert(False);
 
                 if cur_dtype == AnnotationLib.AnnoList.TYPE_INT32:
