@@ -137,7 +137,7 @@ def build_forward(H, x, googlenet, phase, reuse):
         stride = 2
         pool_size = 5
 
-        with tf.variable_scope("deconv", reuse=reuse):
+        with tf.compat.v1.variable_scope("deconv", reuse=reuse):
             w = tf.get_variable('conv_pool_w', shape=[size, size, 1024, 1024],
                                 initializer=tf.random_normal_initializer(stddev=0.01))
             cnn_s = tf.nn.conv2d(cnn, w, strides=[1, stride, stride, 1], padding='SAME')
@@ -159,7 +159,7 @@ def build_forward(H, x, googlenet, phase, reuse):
     cnn = tf.reshape(cnn,
                      [H['batch_size'] * H['grid_width'] * H['grid_height'], 1024])
     initializer = tf.random_uniform_initializer(-0.1, 0.1)
-    with tf.variable_scope('decoder', reuse=reuse, initializer=initializer):
+    with tf.compat.v1.variable_scope('decoder', reuse=reuse, initializer=initializer):
         scale_down = 0.01
         lstm_input = tf.reshape(cnn * scale_down, (H['batch_size'] * grid_size, 1024))
         if H['use_lstm']:
@@ -244,7 +244,7 @@ def build_forward_backward(H, x, googlenet, phase, boxes, flags):
          pred_confidences, pred_confs_deltas, pred_boxes_deltas) = build_forward(H, x, googlenet, phase, reuse)
     else:
         pred_boxes, pred_logits, pred_confidences = build_forward(H, x, googlenet, phase, reuse)
-    with tf.variable_scope('decoder', reuse={'train': None, 'test': True}[phase]):
+    with tf.compat.v1.variable_scope('decoder', reuse={'train': None, 'test': True}[phase]):
         outer_boxes = tf.reshape(boxes, [outer_size, H['rnn_len'], 4])
         outer_flags = tf.cast(tf.reshape(flags, [outer_size, H['rnn_len']]), 'int32')
         if H['use_lstm']:
