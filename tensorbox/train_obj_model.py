@@ -154,7 +154,7 @@ def build_forward(H, x, googlenet, phase, reuse):
         cnn2 = cnn[:, :, :, 700:]
         cnn2 = tf.nn.avg_pool(cnn2, ksize=[1, pool_size, pool_size, 1],
                               strides=[1, 1, 1, 1], padding='SAME')
-        cnn = tf.concat(3, [cnn1, cnn2])
+        cnn = tf.concat([cnn1, cnn2], axis = 3)
 
     cnn = tf.reshape(cnn,
                      [H['batch_size'] * H['grid_width'] * H['grid_height'], 1024])
