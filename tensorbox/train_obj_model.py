@@ -38,7 +38,7 @@ def build_lstm_inner(H, lstm_input):
     '''
     build lstm decoder
     '''
-    lstm_cell = rnn_cell.LSTMCell(H['lstm_size'], forget_bias=0.0)
+    lstm_cell = rnn_cell(H['lstm_size'], forget_bias=0.0)
     if H['num_lstm_layers'] > 1:
         lstm = rnn_cell.MultiRNNCell([lstm_cell] * H['num_lstm_layers'])
     else:
@@ -104,7 +104,7 @@ def rezoom(H, pred_boxes, early_feat, early_feat_channels, w_offsets, h_offsets)
                                                        early_feat_channels,
                                                        w_offset, h_offset))
 
-    interp_indices = tf.concat(0, indices)
+    interp_indices = tf.concat(indices, axis = 0)
     rezoom_features = train_utils.interp(early_feat,
                                          interp_indices,
                                          early_feat_channels)
@@ -144,9 +144,9 @@ def build_forward(H, x, googlenet, phase, reuse):
             cnn_s_pool = tf.nn.avg_pool(cnn_s[:, :, :, :256], ksize=[1, pool_size, pool_size, 1],
                                         strides=[1, 1, 1, 1], padding='SAME')
 
-            cnn_s_with_pool = tf.concat(3, [cnn_s_pool, cnn_s[:, :, :, 256:]])
+            cnn_s_with_pool = tf.concat([cnn_s_pool, cnn_s[:, :, :, 256:]], axis = 3)
             cnn_deconv = deconv(cnn_s_with_pool, output_shape=[H['batch_size'], H['grid_height'], H['grid_width'], 256], channels=[1024, 256])
-            cnn = tf.concat(3, (cnn_deconv, cnn[:, :, :, 256:]))
+            cnn = tf.concat((cnn_deconv, cnn[:, :, :, 256:]), axis = 3)
 
     elif H['avg_pool_size'] > 1:
         pool_size = H['avg_pool_size']
@@ -185,8 +185,8 @@ def build_forward(H, x, googlenet, phase, reuse):
             pred_logits.append(tf.reshape(tf.matmul(output, conf_weights),
                                          [outer_size, 1, H['num_classes']]))
 
-        pred_boxes = tf.concat(1, pred_boxes)
-        pred_logits = tf.concat(1, pred_logits)
+        pred_boxes = tf.concat(pred_boxes, axis = 1)
+        pred_logits = tf.concat(pred_logits, axis = 1)
         pred_logits_squash = tf.reshape(pred_logits,
                                         [outer_size * H['rnn_len'], H['num_classes']])
         pred_confidences_squash = tf.nn.softmax(pred_logits_squash)
@@ -203,7 +203,7 @@ def build_forward(H, x, googlenet, phase, reuse):
             if phase == 'train':
                 rezoom_features = tf.nn.dropout(rezoom_features, 0.5)
             for k in range(H['rnn_len']):
-                delta_features = tf.concat(1, [lstm_outputs[k], rezoom_features[:, k, :] / 1000.])
+                delta_features = tf.concat([lstm_outputs[k], rezoom_features[:, k, :] / 1000.], axis = 1)
                 dim = 128
                 delta_weights1 = tf.get_variable(
                                     'delta_ip1%d' % k,
@@ -224,9 +224,9 @@ def build_forward(H, x, googlenet, phase, reuse):
                 scale = H.get('rezoom_conf_scale', 50)
                 pred_confs_deltas.append(tf.reshape(tf.matmul(ip1, delta_confs_weights) * scale,
                                                     [outer_size, 1, H['num_classes']]))
-            pred_confs_deltas = tf.concat(1, pred_confs_deltas)
+            pred_confs_deltas = tf.concat(pred_confs_deltas, axis = 1)
             if H['reregress']:
-                pred_boxes_deltas = tf.concat(1, pred_boxes_deltas)
+                pred_boxes_deltas = tf.concat(pred_boxes_deltas, axis = 1)
             return pred_boxes, pred_logits, pred_confidences, pred_confs_deltas, pred_boxes_deltas
 
     return pred_boxes, pred_logits, pred_confidences
