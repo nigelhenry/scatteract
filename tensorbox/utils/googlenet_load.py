@@ -26,7 +26,7 @@ def init(H, config=None):
 
     googlenet_graph = tf.Graph()
     graph_def = tf.compat.v1.GraphDef()
-    tf.set_random_seed(0)
+    tf.random.set_seed(0)
     with open(graph_def_orig_file) as f:
         tf.set_random_seed(0)
         graph_def.MergeFromString(f.read())
