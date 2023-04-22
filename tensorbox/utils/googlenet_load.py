@@ -25,7 +25,7 @@ def init(H, config=None):
     dense_layer_num_output = [k, 4]
 
     googlenet_graph = tf.Graph()
-    graph_def = tf.GraphDef()
+    graph_def = tf.compat.v1.GraphDef()
     tf.set_random_seed(0)
     with open(graph_def_orig_file) as f:
         tf.set_random_seed(0)
