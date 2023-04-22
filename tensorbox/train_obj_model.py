@@ -322,7 +322,7 @@ def build(H, q):
 
     learning_rate = tf.compat.v1.placeholder(tf.float32)
     if solver['opt'] == 'RMS':
-        opt = tf.optimizers.RMSProp(learning_rate=learning_rate,
+        opt = tf.keras.optimizers.RMSprop(learning_rate=learning_rate,
                                         decay=0.9, epsilon=solver['epsilon'])
     elif solver['opt'] == 'Adam':
         opt = tf.train.AdamOptimizer(learning_rate=learning_rate,
