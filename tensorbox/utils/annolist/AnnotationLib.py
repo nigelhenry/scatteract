@@ -68,8 +68,8 @@ class AnnoList(MutableSequence):
 			self._list = list()	
    
 	def __add__(self, other):
-		self._list  = self._list + other._list       
-        
+		self._list  = self._list + other._list
+	
 	def add_attribute(self, name, dtype):
 		_adesc = AnnoList_pb2.AttributeDesc();
 		_adesc.name = name;
@@ -85,51 +85,51 @@ class AnnoList(MutableSequence):
 		elif dtype == str:
 			_adesc.dtype = AnnoList.TYPE_STRING;
 		else:
-                        print("unknown attribute type: "+ dtype)
+			print("unknown attribute type: "+ dtype)
 			assert(False);
-		
+
 		#print "adding attribute: {}, id: {}, type: {}".format(_adesc.name, _adesc.id, _adesc.dtype);
 		self.attribute_desc[name] = _adesc;
 
-        def add_attribute_val(self, aname, vname, val):
-                # add attribute before adding string corresponding to integer value
-                assert(aname in self.attribute_desc);
+	def add_attribute_val(self, aname, vname, val):
+		# add attribute before adding string corresponding to integer value
+		assert(aname in self.attribute_desc);
 
-                # check and add if new 
-                if all((val_desc.id != val for val_desc in self.attribute_desc[aname].val_to_str)):
-                        val_desc = self.attribute_desc[aname].val_to_str.add()
-                        val_desc.id = val;
-                        val_desc.s = vname;
+		# check and add if new 
+		if all((val_desc.id != val for val_desc in self.attribute_desc[aname].val_to_str)):
+			val_desc = self.attribute_desc[aname].val_to_str.add()
+			val_desc.id = val;
+			val_desc.s = vname;
+		
+		# also add to map for quick access
+		if not aname in self.attribute_val_to_str:
+			self.attribute_val_to_str[aname] = {};
+			
+		assert(not val in self.attribute_val_to_str[aname]);
+		self.attribute_val_to_str[aname][val] = vname;
 
-                # also add to map for quick access
-                if not aname in self.attribute_val_to_str:
-                        self.attribute_val_to_str[aname] = {};
 
-                assert(not val in self.attribute_val_to_str[aname]);
-                self.attribute_val_to_str[aname][val] = vname;
-
-
-        def attribute_get_value_str(self, aname, val):
-                if aname in self.attribute_val_to_str and val in self.attribute_val_to_str[aname]:
-                        return self.attribute_val_to_str[aname][val];
-                else:
-                        return str(val);
-
-        def save(self, fname):
-                save(fname, self);
-        
+	def attribute_get_value_str(self, aname, val):
+		if aname in self.attribute_val_to_str and val in self.attribute_val_to_str[aname]:
+			return self.attribute_val_to_str[aname][val];
+		else:
+			return str(val);
+	
+	def save(self, fname):
+		save(fname, self);
+	
 	#MA: list interface   
 	def __len__(self):
 		return len(self._list)
 
 	def __getitem__(self, ii):
-                if isinstance(ii, slice):
-                        res = AnnoList();
-                        res.attribute_desc = self.attribute_desc;
-                        res._list = self._list[ii]
-                        return res;
-                else:
-                        return self._list[ii]
+		if isinstance(ii, slice):
+			res = AnnoList();
+			res.attribute_desc = self.attribute_desc;
+			res._list = self._list[ii]
+			return res;
+		else:
+			return self._list[ii]
 
 	def __delitem__(self, ii):
 		del self._list[ii]
@@ -152,25 +152,25 @@ class AnnoList(MutableSequence):
 
 
 def is_compatible_attr_type(protobuf_type, attr_type):
-        if protobuf_type == AnnoList.TYPE_INT32:
-                return (attr_type == int);
-        elif protobuf_type == AnnoList.TYPE_FLOAT:
-                return (attr_type == float or attr_type == np.float32);
-        elif protobuf_type == AnnoList.TYPE_STRING:
-                return (attr_type == str);
-        else:
-                assert(false);
-        
+	if protobuf_type == AnnoList.TYPE_INT32:
+		return (attr_type == int);
+	elif protobuf_type == AnnoList.TYPE_FLOAT:
+		return (attr_type == float or attr_type == np.float32);
+	elif protobuf_type == AnnoList.TYPE_STRING:
+		return (attr_type == str);
+	else:
+		assert(false);
+	
 
 def protobuf_type_to_python(protobuf_type):
-        if protobuf_type == AnnoList.TYPE_INT32:
-                return int;
-        elif protobuf_type == AnnoList.TYPE_FLOAT:
-                return float;
-        elif protobuf_type == AnnoList.TYPE_STRING:
-                return str;
-        else:
-                assert(false);
+	if protobuf_type == AnnoList.TYPE_INT32:
+		return int;
+	elif protobuf_type == AnnoList.TYPE_FLOAT:
+		return float;
+	elif protobuf_type == AnnoList.TYPE_STRING:
+		return str;
+	else:
+assert(false);
 
 
 class AnnoPoint(object):
@@ -198,7 +198,7 @@ class AnnoRect(object):
 		self.track_id = -1
 
 		self.point = [];
-                self.at = {};
+		self.at = {};
 
 	def width(self):
 		return abs(self.x2-self.x1)
@@ -548,8 +548,8 @@ class detAnnoRect:
 
 def parseTii(filename):
 
-        # MA: this must be some really old code
-        assert(False);
+	# MA: this must be some really old code
+	assert(False);
 	annotations = []
 
 	#--- parse xml ---#
@@ -712,17 +712,17 @@ def parse(filename, abs_path=False):
 	
 	if(ext == ".idl"):
 		annolist = parseIDL(filename)
-        elif(ext == ".al"):
+	elif(ext == ".al"):
 		annolist = parseXML(filename)
-        elif(ext == ".pal"):
+	elif(ext == ".pal"):
 		annolist = PalLib.pal2al(PalLib.loadPal(filename));
-        else:
-                annolist = AnnoList([]);
+	else:
+		annolist = AnnoList([]);
 
-        if abs_path:
-                basedir = os.path.dirname(os.path.abspath(filename))
-                for a in annolist:
-                        a.imageName = basedir + "/" + os.path.basename(a.imageName)
+	if abs_path:
+		basedir = os.path.dirname(os.path.abspath(filename))
+		for a in annolist:
+			a.imageName = basedir + "/" + os.path.basename(a.imageName)
 
 	return annolist
 
@@ -748,7 +748,7 @@ def parseIDL(filename):
 		lines = bfile.readlines()
 		bfile.close()
 
-        annotations = AnnoList([])
+	annotations = AnnoList([])
 
 	for line in lines:
 		anno = Annotation()
@@ -990,13 +990,13 @@ def getStats(annotations):
 		varWidth=float(varWidth)/float(no-1)
 
 	###--- write statistics ---###
-	print "  Total # rects:", no
-	print "     avg. Width:", avgWidth, " (", sqrt(varWidth), "standard deviation )"
-	print "    avg. Height:", avgHeight, " (", sqrt(varHeight), "standard deviation )"
-	print "     tiny rects:", noTiny, " (< 36 pixels)"
-	print "    small rects:", noSmall, " (< 128 pixels)"
-	print "    minimum height:", minHeight
-	print "    maximum height:", maxHeight
+	print ("  Total # rects:"+ no)
+	print ("     avg. Width:"+ avgWidth+ " ("+ sqrt(varWidth)+ "standard deviation )")
+	print ("    avg. Height:"+ avgHeight+ " ("+ sqrt(varHeight)+ "standard deviation )")
+	print ("     tiny rects:"+ noTiny+ " (< 36 pixels)")
+	print ("    small rects:"+ noSmall+ " (< 128 pixels)")
+	print ("    minimum height:"+ minHeight)
+	print ("    maximum height:"+ maxHeight))
 
 	###--- return ---###
 	return [widths, heights]
