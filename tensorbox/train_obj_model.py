@@ -48,7 +48,7 @@ def build_lstm_inner(H, lstm_input):
     state = tf.zeros([batch_size, lstm.state_size])
 
     outputs = []
-    with tf.variable_scope('RNN', initializer=tf.random_uniform_initializer(-0.1, 0.1)):
+    with tf.compat.v1.variable_scope('RNN', initializer=tf.random_uniform_initializer(-0.1, 0.1)):
         for time_step in range(H['rnn_len']):
             if time_step > 0: tf.get_variable_scope().reuse_variables()
             output, state = lstm(lstm_input, state)
