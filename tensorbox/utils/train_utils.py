@@ -14,9 +14,8 @@ import sys
 import os
 current_dir = os.path.dirname(__file__)
 sys.path.append(current_dir+'/annolist')
-sys.path.append(current_dir+'/rect')
 import AnnotationLib as al
-import Rect
+from .rect import Rect
 
 def rescale_boxes(current_shape, anno, target_height, target_width):
     x_scale = target_width / float(current_shape[1])
