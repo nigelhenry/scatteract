@@ -63,7 +63,7 @@ def build_overfeat_inner(H, lstm_input):
         raise ValueError('rnn_len > 1 only supported with use_lstm == True')
     outputs = []
     initializer = tf.random_uniform_initializer(-0.1, 0.1)
-    with tf.variable_scope('Overfeat', initializer=initializer):
+    with tf.compat.v1.variable_scope('Overfeat', initializer=initializer):
         w = tf.get_variable('ip', shape=[1024, H['lstm_size']])
         outputs.append(tf.matmul(lstm_input, w))
     return outputs
