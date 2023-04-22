@@ -45,7 +45,7 @@ def build_lstm_inner(H, lstm_input):
         lstm = lstm_cell
 
     batch_size = H['batch_size'] * H['grid_height'] * H['grid_width']
-    state = tf.zeros(batch_size, lstm.state_size)
+    state = [tf.zeros([batch_size, lstm.state_size])] * 2
 
     outputs = []
     with tf.compat.v1.variable_scope('RNN', initializer=tf.random_uniform_initializer(-0.1, 0.1)):
