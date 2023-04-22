@@ -75,13 +75,13 @@ def init(H, config=None):
 
     weight_vars = {
         name: tf.Variable(weight, name=name)
-        for name, weight in weights_orig.iteritems()
+        for name, weight in weights_orig.items()
     }
     #print(tf.trainable_variables())
 
     weight_tensors = {
         name: tf.convert_to_tensor(weight)
-        for name, weight in weight_vars.iteritems()
+        for name, weight in weight_vars.items()
     }
 
     W_norm = [tf.nn.l2_loss(weight) for weight in weight_vars.values() + W]
