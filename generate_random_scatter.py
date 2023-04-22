@@ -341,7 +341,7 @@ def get_random_plot(name, direc):
     # BACKGROUND AND PATCH COLORS
     if np.random.rand(1)[0]>0.75:
         color_bg = (1-colorbg_transparant_max)+colorbg_transparant_max*np.random.rand(3)
-        ax.set_axis_bgcolor(color_bg)
+        ax.set_facecolor(color_bg)
     if np.random.rand(1)[0]>0.75:
         color_bg = (1-colorbg_transparant_max)+colorbg_transparant_max*np.random.rand(3)
         fig.patch.set_facecolor(color_bg)
