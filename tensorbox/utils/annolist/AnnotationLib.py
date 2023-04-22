@@ -996,7 +996,7 @@ def getStats(annotations):
 	print ("     tiny rects:"+ noTiny+ " (< 36 pixels)")
 	print ("    small rects:"+ noSmall+ " (< 128 pixels)")
 	print ("    minimum height:"+ minHeight)
-	print ("    maximum height:"+ maxHeight))
+	print ("    maximum height:"+ maxHeight)
 
 	###--- return ---###
 	return [widths, heights]
