@@ -86,7 +86,7 @@ def init(H, config=None):
 
     W_norm = [tf.nn.l2_loss(weight) for weight in list(weight_vars.values()) + W]
     W_norm = tf.reduce_sum(tf.stack(W_norm), name='weights_norm')
-    tf.scalar_summary(W_norm.op.name, W_norm)
+    tf.summary.scalar(W_norm.op.name, W_norm)
 
     googlenet = {
         "W": W,
