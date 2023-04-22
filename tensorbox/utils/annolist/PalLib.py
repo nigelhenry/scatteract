@@ -94,7 +94,7 @@ def pal2al(_annolist):
         annotations.attribute_desc[adesc.name] = adesc;
         print ("attribute: "+ adesc.name+ adesc.id
 
-        for valdesc in a)desc.val_to_str:
+        for valdesc in adesc.val_to_str:
             annotations.add_attribute_val(adesc.name, valdesc.s, valdesc.id);
 
     attribute_name_from_id = {adesc.id: aname for aname, adesc in annotations.attribute_desc.iteritems()}
