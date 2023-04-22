@@ -61,8 +61,7 @@ class AnnoList(MutableSequence):
 		super(AnnoList, self).__init__()
 
 		self.attribute_desc = {};
-                self.attribute_val_to_str = {};
-
+		self.attribute_val_to_str = {};
 		if not (data is None):
 			self._list = list(data)
 		else:
