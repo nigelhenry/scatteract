@@ -170,7 +170,7 @@ def protobuf_type_to_python(protobuf_type):
 	elif protobuf_type == AnnoList.TYPE_STRING:
 		return str;
 	else:
-assert(false);
+		assert(false);
 
 
 class AnnoPoint(object):
