@@ -944,12 +944,12 @@ def getStats(annotations):
 				noSmall=noSmall+1
 			heights.append(rect.height())
 			if (rect.width()==0):
-				print "Warning: width=0 in image ", anno.imageName
+				print("Warning: width=0 in image "+ anno.imageName)
 				widths.append(1)
 			else:
 				widths.append(rect.width())
 				if (float(rect.height())/float(rect.width())<1.5):
-					print "Degenerated pedestrian annotation: ", anno.imageName
+					print("Degenerated pedestrian annotation: "+ anno.imageName)
 
 	###--- compute average height and variance ---###
 	avgHeight = 0
@@ -1100,7 +1100,7 @@ def extractSubSet(gtIDL, detIDL):
 					break
 
 		if(not imageFound):
-			print "Image not found " + gtAnno.imageName + " !"
+			print("Image not found " + gtAnno.imageName + " !")
 			missingRecallIDL.append(gtAnno)
 			filteredIDL.append(filteredAnno)
 			continue
