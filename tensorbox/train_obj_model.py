@@ -314,7 +314,7 @@ def build(H, q):
 
     os.environ['CUDA_VISIBLE_DEVICES'] = str(solver['gpu'])
 
-    $#gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.8)
+    #gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.8)
     #gpu_options = tf.GPUOptions()
     #config = tf.ConfigProto(gpu_options=gpu_options)
 
