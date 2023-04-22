@@ -8,7 +8,7 @@ from skimage.transform import resize
 from skimage.io import imsave
 import tensorflow as tf
 
-from .data_utils import (annotation_jitter, annotation_to_h5)
+from data_utils import (annotation_jitter, annotation_to_h5)
 
 import sys
 import os
