@@ -84,7 +84,7 @@ def init(H, config=None):
         for name, weight in weight_vars.items()
     }
 
-    W_norm = [tf.nn.l2_loss(weight) for weight in weight_vars.values() + W]
+    W_norm = [tf.nn.l2_loss(weight) for weight in list(weight_vars.values()) + W]
     W_norm = tf.reduce_sum(tf.pack(W_norm), name='weights_norm')
     tf.scalar_summary(W_norm.op.name, W_norm)
 
