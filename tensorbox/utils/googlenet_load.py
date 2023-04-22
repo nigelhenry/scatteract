@@ -1,5 +1,5 @@
 import tensorflow as tf
-from kaffe import mynet
+import kaffe.mynet
 import os
 import numpy as np
 
