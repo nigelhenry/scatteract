@@ -48,7 +48,7 @@ def init(H, config=None):
         and op.name != 'output'
     ]
 
-    with tf.Session(graph=googlenet_graph): #, config=config):
+    with tf.compat.v1.Session(graph=googlenet_graph): #, config=config):
         weights_orig = {
             op.name: op.outputs[0].eval()
             for op in weights_ops
