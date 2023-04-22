@@ -314,11 +314,11 @@ def build(H, q):
 
     os.environ['CUDA_VISIBLE_DEVICES'] = str(solver['gpu'])
 
-    #gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.8)
-    gpu_options = tf.GPUOptions()
-    config = tf.ConfigProto(gpu_options=gpu_options)
+    $#gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.8)
+    #gpu_options = tf.GPUOptions()
+    #config = tf.ConfigProto(gpu_options=gpu_options)
 
-    encoder_net = googlenet_load.init(H, config)
+    encoder_net = googlenet_load.init(H)#, config)
 
     learning_rate = tf.compat.v1.placeholder(tf.float32)
     if solver['opt'] == 'RMS':
