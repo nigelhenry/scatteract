@@ -20,7 +20,13 @@ import threading
 random.seed(0)
 np.random.seed(0)
 
-from .utils import train_utils, googlenet_load
+import sys
+import os
+current_dir = os.path.dirname(__file__)
+sys.path.append(current_dir+'/utils')
+
+import train_utils
+import googlenet_load
 
 @ops.RegisterGradient("Hungarian")
 def _hungarian_grad(op, *args):
