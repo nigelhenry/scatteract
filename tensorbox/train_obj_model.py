@@ -9,6 +9,8 @@ from scipy import misc
 import numpy as np #Must import numpy before tensorflow to prevent segfaults
 import tensorflow as tf
 
+tf.compat.v1.disable_eager_execution()
+
 try:
     from tensorflow.models.rnn import rnn_cell
 except ImportError:
