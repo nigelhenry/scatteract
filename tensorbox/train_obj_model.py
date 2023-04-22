@@ -45,9 +45,9 @@ def build_lstm_inner(H, lstm_input):
         lstm = lstm_cell
 
     batch_size = H['batch_size'] * H['grid_height'] * H['grid_width']
-    print("batch size:)
+    print("batch size:")
     print(batch_size)
-    print("state size:)
+    print("state size:")
     print(lstm.state_size)
     state = tf.zeros([batch_size, lstm.state_size])
 
