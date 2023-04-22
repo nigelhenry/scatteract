@@ -1,4 +1,4 @@
-import tensorflow as tf
+)import tensorflow as tf
 
 import sys
 import os
@@ -10,9 +10,9 @@ import os
 import numpy as np
 
 def init(H, config=None):
-    if config is None:
-        gpu_options = tf.GPUOptions()
-        config = tf.ConfigProto(gpu_options=gpu_options)
+    #if config is None:
+    #    gpu_options = tf.GPUOptions()
+    #    config = tf.ConfigProto(gpu_options=gpu_options)
 
     k = H['num_classes']
     features_dim = 1024
@@ -48,7 +48,7 @@ def init(H, config=None):
         and op.name != 'output'
     ]
 
-    with tf.Session(graph=googlenet_graph, config=config):
+    with tf.Session(graph=googlenet_graph): #, config=config):
         weights_orig = {
             op.name: op.outputs[0].eval()
             for op in weights_ops
