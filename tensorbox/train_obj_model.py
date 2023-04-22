@@ -318,7 +318,7 @@ def build(H, q):
 
     encoder_net = googlenet_load.init(H, config)
 
-    learning_rate = tf.placeholder(tf.float32)
+    learning_rate = tf.compat.v1.placeholder(tf.float32)
     if solver['opt'] == 'RMS':
         opt = tf.train.RMSPropOptimizer(learning_rate=learning_rate,
                                         decay=0.9, epsilon=solver['epsilon'])
@@ -422,9 +422,9 @@ def train(H, test_images):
     with open(H['save_dir'] + '/hypes.json', 'w') as f:
         json.dump(H, f, indent=4)
 
-    x_in = tf.placeholder(tf.float32)
-    confs_in = tf.placeholder(tf.float32)
-    boxes_in = tf.placeholder(tf.float32)
+    x_in = tf.compat.v1.placeholder(tf.float32)
+    confs_in = tf.compat.v1.placeholder(tf.float32)
+    boxes_in = tf.compat.v1.placeholder(tf.float32)
     q = {}
     enqueue_op = {}
     for phase in ['train', 'test']:
