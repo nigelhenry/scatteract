@@ -40,7 +40,7 @@ def build_lstm_inner(H, lstm_input):
     '''
     lstm_cell = tf.keras.layers.LSTMCell(H['lstm_size']) #, forget_bias=0.0)
     if H['num_lstm_layers'] > 1:
-        lstm = tf.keras.layers.StackedRNNCells([lstm_cell] * H['num_lstm_layers'])
+        lstm = tf.keras.layers.StackedRNNCells([lstm_cell for _ in range(H['num_lstm_layers'])])
     else:
         lstm = lstm_cell
 
