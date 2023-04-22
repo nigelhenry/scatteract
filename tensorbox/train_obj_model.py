@@ -38,7 +38,7 @@ def build_lstm_inner(H, lstm_input):
     '''
     build lstm decoder
     '''
-    lstm_cell = rnn_cell.BasicLSTMCell(H['lstm_size'], forget_bias=0.0)
+    lstm_cell = rnn_cell.LSTMCell(H['lstm_size'], forget_bias=0.0)
     if H['num_lstm_layers'] > 1:
         lstm = rnn_cell.MultiRNNCell([lstm_cell] * H['num_lstm_layers'])
     else:
