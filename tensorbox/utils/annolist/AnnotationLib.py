@@ -85,7 +85,7 @@ class AnnoList(MutableSequence):
 		elif dtype == str:
 			_adesc.dtype = AnnoList.TYPE_STRING;
 		else:
-                        print "unknown attribute type: ", dtype
+                        print("unknown attribute type: "+ dtype)
 			assert(False);
 		
 		#print "adding attribute: {}, id: {}, type: {}".format(_adesc.name, _adesc.id, _adesc.dtype);
@@ -248,11 +248,11 @@ class AnnoRect(object):
 			self.y2 = min(max_y, self.y2)
 
 	def printContent(self):
-		print "Coords: ", self.x1, self.y1, self.x2, self.y2
-		print "Score: ", self.score
-		print "Articulations: ", self.articulations
-		print "Viewpoints: ", self.viewpoints
-		print "Silhouette: ", self.silhouetteID
+		print("Coords: "+ self.x1+ self.y1+ self.x2+ self.y2)
+		print("Score: "+ self.score)
+		print("Articulations: "+ self.articulations)
+		print("Viewpoints: "+ self.viewpoints)
+		print("Silhouette: "+ self.silhouetteID)
 
 	def ascii(self):
 		r = "("+str(self.x1)+", "+str(self.y1)+", "+str(self.x2)+", "+str(self.y2)+")"
@@ -487,7 +487,7 @@ class Annotation(object):
 		return os.path.join(self.imagePath, self.imageName)
 
 	def printContent(self):
-		print "Name: ", self.imageName
+		print("Name: "_ self.imageName)
 		for rect in self.rects:
 			rect.printContent()
 
@@ -590,7 +590,7 @@ def parseTii(filename):
 					rect.x2 = float(aNode.firstChild.data)
 					aNode = vehicle.getAttributeNode( orientation+"_BottomRight_Y")
 					rect.y2 = float(aNode.firstChild.data)
-					print "pedestrian:", anno.imageName, rect.x1, rect.y1, rect.x2, rect.y2
+					print("pedestrian:"+ anno.imageName+ rect.x1+ rect.y1+ rect.x2+ rect.y2)
 					anno.rects.append(rect)
 
 		annotations.append(anno)
@@ -784,7 +784,7 @@ def parseIDL(filename):
 
 			segments = line.split(',')
 			if (len(segments)%4!=0):
-				print "Parse Errror"
+				print("Parse Errror")
 			else:
 				for i in range(0,len(segments),4):
 					rectSeg = segments[i]+","+segments[i+1]+","+segments[i+2]+","+segments[i+3]
@@ -827,7 +827,7 @@ def parseIDL(filename):
 ### Saving
 
 def save(filename, annotations):
-	print "saving: ", filename;
+	print("saving: "+ filename);
 
 	name, ext = os.path.splitext(filename)
 
@@ -906,7 +906,7 @@ def saveXML(filename, annotations):
 	elif(ext == ".bz2"):
 		writer = bz2.BZ2File(filename, 'w')
 	else:
-		print "invalid filename - .al(.gz|.bz2) is accepted"
+		print("invalid filename - .al(.gz|.bz2) is accepted")
 		return
 
 	
