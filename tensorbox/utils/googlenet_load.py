@@ -1,5 +1,11 @@
 import tensorflow as tf
-import kaffe.mynet
+
+import sys
+import os
+current_dir = os.path.dirname(__file__)
+sys.path.append(current_dir+'/kaffe')
+import AnnotationLib as al
+import mynet
 import os
 import numpy as np
 
